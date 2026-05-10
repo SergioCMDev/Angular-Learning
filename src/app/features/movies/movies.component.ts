@@ -5,6 +5,7 @@ import { MovieService, Movie } from "./movies.service";
     template: `
     <p> Movies </p>
     <button (click)="search()">Buscar</button>
+    <button (click)="clear()">Limpiar</button>
 
     @if (populars().length > 0){
         <p> Movies </p>
@@ -20,6 +21,7 @@ import { MovieService, Movie } from "./movies.service";
 export class MovieComponent {
     private movieService = inject(MovieService);
     populars = signal<Movie[]>([]);
+
     search() {
         this.movieService.getPopular().subscribe({
             next: data => {
@@ -30,5 +32,8 @@ export class MovieComponent {
 
             }
         });
+    }
+    clear() {
+        this.populars.set([]);
     }
 }
